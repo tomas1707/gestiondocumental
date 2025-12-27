@@ -82,13 +82,13 @@ Si se muestra una versión superior a la 10.x, entonces deberás instalar y sele
 npm install -g npm@10
 ```
 
-Ahora, nuevamente eejcuta el siguiente comando:
+Ahora, nuevamente ejecuta el siguiente comando:
 
 ```bash
 npm -v
 ```
 
-Deberá mostrar la siguiente versión o similar. Lo importante es qeu sea 10.x.x
+Deberá mostrar la siguiente versión o similar. Lo importante es que sea 10.x.x
 
 ```bash
 10.9.4
@@ -100,7 +100,7 @@ Listo, ahora tenemos Node 20.x y npm 10.x
 
 ## 3️⃣ Clonación del proyecto
 
-Esta clonación es un paso habitual y sin complicaciones. Ubica una carpeta en Mis Documentos o en alguna partición que tengas disponible en tu computadora y genera una carpeta con el nombre **Residencias** ingresa a dicha carpeta y abres una terminal.
+Esta clonación es un paso habitual y sin complicaciones. Ubica una carpeta en Mis Documentos o en alguna partición que tengas disponible en tu computadora y genera una carpeta con el nombre **Residencias** ingresa a dicha carpeta y abre una terminal.
 
 ```
 🖥️Este equipo
@@ -126,7 +126,7 @@ Ahora, utilizando la terminal, deberás ingresar a la subcarpeta gestiondocument
 ```
 
 ```bash
-C:\Users\denisse\Documents\residencias\sistema-documental> code .
+C:\Users\denisse\Documents\residencias\gestiondocumental> code .
 ```
 
 ---
@@ -197,7 +197,7 @@ DATABASE_URL="mysql://admindocumental:tu_password_seguro@localhost:3306/gestiond
 
 ## 7️⃣ Ejecuta las migraciones
 
-Será necesario crear la base de datos del proyecto, por lo tanto es importante mencionar que en el proyecto clonado ya incluye los modelos y relaciones de cada tabla de la base de datos que diseñaron, entonces usarás el siguiente comando para invocar el proceso de migración respectiva y así tener toda tu base de datos completa.
+Será necesario crear la base de datos del proyecto, por lo tanto es importante mencionar que en el proyecto clonado ya incluye los modelos y relaciones de cada tabla de la base de datos que diseñaron, entonces usarás el siguiente comando para invocar el proceso de migración respectiva y así tener toda la base de datos completa.
 
 ```bash
 npx prisma generate dev --name base_inical
@@ -205,7 +205,7 @@ npx prisma generate dev --name base_inical
 
 Este comando creará una carpeta de migraciones en prisma/migrations y generará o actualizará la base de datos, esto en caso de haber cambios el algún modelo.
 
-Ahora ya puedes conectar tu entorno de base dadtos DBeaver
+Ahora ya puedes conectar tu entorno de base datos DBeaver
 
 ![](https://github.com/dbeaver/dbeaver/wiki/images/dbeaver-head.png)
 
@@ -215,7 +215,7 @@ Ahora ya puedes conectar tu entorno de base dadtos DBeaver
 
 Para que el ORM reconozca los modelos y genere el cliente Prisma correctamente, será necesario ejecutar el siguiente comando:
 
-Genera el cliente de Prisma (Obligatorio para que funcione prisma.area)
+Genera el cliente de Prisma (Obligatorio para que funcionen todos los modelos coo prisma.area)
 
 ```bash
 npx prisma generate
@@ -240,7 +240,7 @@ No debe mostrar ningún error, deberá mostrar un mensaje similar al siguiente:
 
 ## 8️⃣ Ejecuta la App de React
 
-Una vez realizadas todas las instalaciones y configuraciones necesarias, ya puedes eejcutar la App de escritorio de Gestión Documental. Utiliza el comando habital:
+Una vez realizadas todas las instalaciones y configuraciones necesarias, ya puedes ejecutar la App de escritorio de Gestión Documental. Utiliza el comando habital:
 
 ```bash
 npm run dev
@@ -289,7 +289,7 @@ app.listen(port, () => {
 module.exports = app;
 ```
 
-Por el momento solo mostraré el ejemplo en postam, usando el método http tipo POST para que realices las pruebas necesarias.
+Por el momento solo mostraré el ejemplo en postman, usando el método http POST para que realices las pruebas necesarias.
 
 Utiliza la siguiente ruta: http://localhost:3001/api/usuarios
 
