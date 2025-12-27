@@ -1,0 +1,68 @@
+/* --- Base: Propiedades de Forma y Tamaño --- */
+.status-badge {
+    display: inline-flex;
+    justify-content: center; 
+    align-items: center;
+    min-width: 85px; 
+    height: 28px;
+    padding: 4px 10px; 
+    border-radius: 9999px; /* Forma de píldora */
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+    box-sizing: border-box;
+    white-space: nowrap; 
+    transition: all 0.2s ease; 
+}
+
+/* ------------------------------------------------------------------- */
+/* 1. ESTADOS DE USUARIO (Activo/Inactivo) */
+/* ------------------------------------------------------------------- */
+
+/* Indicador de estado ACTIVO (Verde) */
+.status-badge-activo { 
+    color: #1e7e34; 
+    background-color: #d4edda; 
+    border: 1px solid #c3e6cb;
+}
+
+/* Indicador de estado INACTIVO (Rojo) */
+.status-badge-inactivo { 
+    color: #721c24; 
+    background-color: #f8d7da; 
+    border: 1px solid #f5c6cb;
+}
+
+/* ------------------------------------------------------------------- */
+/* 2. ESTADOS DE DOCUMENTOS (Turnado, En proceso, Respondido, Vencido) */
+/* ------------------------------------------------------------------- */
+
+/* Turnado (Verde) */
+.status-badge-turnado {
+    color: #0c7a52;
+    background-color: #d2f4d6;
+    border: 1px solid #c9e6ce;
+}
+
+/* En proceso (Amarillo) */
+.status-badge-en-proceso {
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+}
+
+/* Respondido (Azul) */
+.status-badge-respondido {
+    color: #004085; /* Un verde diferente al de 'activo' si lo deseas, o usa el mismo. */
+    background-color: #cce5ff;
+    border: 1px solid #b8daff;
+}
+
+/* Vencido (Rojo) */
+.status-badge-vencido {
+    color: #721c24; /* Mismo color de inactivo o más oscuro */
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}

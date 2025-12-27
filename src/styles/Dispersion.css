@@ -1,0 +1,137 @@
+/* ============================================================
+   LAYOUT GENERAL (NO afecta la tabla reutilizable)
+   ============================================================ */
+.main-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: stretch;
+  width: 100%;
+}
+
+.table-component {
+  flex: 2;
+  min-width: 70%;
+}
+/*.tabla-wrapper {
+  overflow-x: auto;  Activar scroll horizontal 
+  
+}*/
+.form-component {
+  flex: 1;
+  min-width: 22%;
+}
+
+.form-component .form-title {
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+@media (max-width: 1024px) {
+  .main-layout {
+    flex-direction: column;
+  }
+}
+
+/* ============================================================
+   ASUNTO + NÚMERO DE OFICIO
+   (NO afecta al estilo de tabla reutilizable)
+   ============================================================ */
+.asunto-container {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.asunto-text {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.num-oficio-text {
+  font-size: 12px;
+  font-weight: normal;
+  color: #555;
+}
+
+/* ============================================================
+   AJUSTES INTERNOS DE UNA CELDA 
+   ============================================================ */
+.celda-asunto {
+  vertical-align: top;
+  padding: 8px;
+}
+
+.tabla-principal th:nth-child(1),
+.tabla-principal td:nth-child(1) {
+  width: 19%;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.tabla-principal th:nth-child(2),
+.tabla-principal td:nth-child(2) {
+  width: 13%;
+}
+
+.tabla-principal th:nth-child(3),
+.tabla-principal td:nth-child(3) {
+  width: 13%;
+}
+
+.tabla-principal th:nth-child(4),
+.tabla-principal td:nth-child(4) {
+  width: 13%;
+}
+
+.tabla-principal th:nth-child(5),
+.tabla-principal td:nth-child(5) {
+  width: 13%;
+}
+
+.tabla-principal th:nth-child(6),
+.tabla-principal td:nth-child(6) {
+  width: 17%;
+}
+
+/* ============================================================
+   FILAS — SOLO SI NO AFECTA A TODA LA TABLA
+   ============================================================ */
+.row-compacta {
+  line-height: 1.2;
+}
+
+/* Centrar el título del formulario */
+.form-component h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+/* Centrar el texto del botón Confirmar Dispersión */
+.btn-confirmar {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+/* Resaltar fila seleccionada */
+.selected-row {
+    background-color: #e3d6c0 !important; 
+   border-left: 5px solid #a17a4a; 
+    cursor: default; 
+}
+
+/* Estilo ESPECÍFICO para la tabla principal en la vista de Dispersión */
+.tabla-principal-wrapper {
+    max-height: 200px;
+}
+/* Estilo ESPECÍFICO para la tabla secundaria de Respuestas */
+.tabla-respuestas-wrapper{
+    max-height: 190px; 
+}
+

@@ -1,0 +1,11 @@
+/*Tamanio del card*/
+.card-direcciones-ip {
+    height: 480px;
+    overflow-y: auto;
+}
+
+/*Boton agregar arriba de la tabla*/
+.btn-agregar-ip-wrapper {
+margin-bottom: 10px;
+}
+

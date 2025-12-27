@@ -1,0 +1,51 @@
+/* Contenedor general */
+.content-area {
+  flex-grow: 1;
+  width: 100%;
+  padding: 10px 15px;
+}
+
+/* === NUEVO: GRID === */
+/* 3 columnas donde la card de barras ocupa 2 */
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* 3 columnas iguales */
+  gap: 20px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Círculos: ocupa 1 columna */
+.circulos-card {
+  grid-column: span 1;
+}
+
+/* Barras: ocupa 2 columnas */
+.barras-card {
+  grid-column: span 2;
+}
+
+
+/* Indicadores internos */
+.indicadores-contenedor {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* === Responsivo === */
+
+/* Pantallas medianas */
+@media (max-width: 1000px) {
+  .dashboard-container {
+    grid-template-columns: 1fr; /* Ahora 1 columna */
+  }
+
+  .circulos-card,
+  .barras-card {
+    width: 100%;
+  }
+}

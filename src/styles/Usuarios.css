@@ -1,0 +1,52 @@
+/* --- Definición de Anchos de Columna para Evitar Amontonamiento --- */
+
+/* Nombre */
+th:nth-child(1), td:nth-child(1) {
+    width: 15%;
+    text-align: left;
+}
+
+/* Num. Trabajador */
+th:nth-child(2), td:nth-child(2) {
+    width: 90px;
+    min-width: 90px;
+}
+
+/* Correo Electrónico */
+th:nth-child(3), td:nth-child(3) {
+    width: 25%;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+/* Usuario */
+th:nth-child(4), td:nth-child(4) {
+    width: 15%;
+}
+
+/* Adscripción */
+th:nth-child(5), td:nth-child(5) {
+    width: 16%;
+    text-align: left;
+}
+
+/* Estatus */
+th:nth-child(6), td:nth-child(6) {
+    width: 110px;
+    min-width: 110px;
+}
+
+/* Acciones (Columna donde están los botones) */
+th:nth-child(7), td:nth-child(7) {
+    width: 130px; 
+    min-width: 130px; /* Para que los botones quepan apilados */
+    padding: 8px 5px; /* Reducir padding horizontal */
+}
+/*Card*/
+.table-card {
+    flex: 1;          
+    min-height: 450px; 
+    display: flex;
+    flex-direction: column;
+}

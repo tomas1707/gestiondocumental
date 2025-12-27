@@ -1,0 +1,234 @@
+// 1. Configuración de la Fuente de Datos
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+}
+
+// 2. Configuración del Cliente
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "library"
+  output     = "../node_modules/.prisma/client" 
+}
+
+
+
+// ==============================
+// MODELO ROL
+// ==============================
+
+model Rol {
+  id           Int              @id @default(autoincrement())
+  nombre_rol   String           @db.VarChar(255)
+
+  usuarios     Usuario[]
+  permisos     RolPermiso[]
+
+  @@map("roles")
+}
+
+// ==============================
+// MODELO AREA
+// ==============================
+
+model Area {
+  id            Int             @id @default(autoincrement())
+  nombre_area   String          @db.VarChar(255)
+
+  usuarios      Usuario[]
+  niveles       Nivel[]
+  documentos    Documento[]
+  ips           Ip[]
+
+  @@map("areas")
+}
+
+// ==============================
+// MODELO PRIVILEGIO
+// ==============================
+
+model Privilegio {
+  id                Int            @id @default(autoincrement())
+  titulo_privilegio String         @db.VarChar(255)
+
+  roles             RolPermiso[]
+
+  @@map("privilegios")
+}
+
+// ==============================
+// MODELO CLAVERH
+// ==============================
+
+model ClaveRh {
+  id    Int    @id @default(autoincrement())
+  clave String @db.VarChar(255)
+
+  @@map("claverh")
+}
+
+// ==============================
+// MODELO CLASIFICACIÓN
+// ==============================
+
+model Clasificacion {
+  id                   Int          @id @default(autoincrement())
+  area_administrativa  String?      @db.VarChar(255)
+  codigo_asignado      String?      @db.VarChar(255)
+  ubicacion            String?      @db.VarChar(255)
+  funcion              String?      @db.VarChar(255)
+
+  documentos            Documento[]
+
+  @@map("clasificaciones")
+}
+
+// ==============================
+// MODELO USUARIOS
+// ==============================
+
+model Usuario {
+  id                Int              @id @default(autoincrement())
+  id_rol            Int
+  id_area           Int
+  nombre_completo   String           @db.VarChar(255)
+  numero_trab       Int?
+  correo_electronico String?         @db.VarChar(255)
+  nombre_usuario    String?          @db.VarChar(255)
+  contrasenia       String?          @db.VarChar(255)
+  status            Boolean          @default(false)
+  fecha_creacion    DateTime         @default(now())
+
+  rol               Rol              @relation(fields: [id_rol], references: [id])
+  area              Area             @relation(fields: [id_area], references: [id])
+  organigramas      Organigrama[]
+  configuraciones   Configuracion[]
+
+  @@map("usuarios")
+}
+
+// ==============================
+// MODELO ROLES_PERMISO
+// ==============================
+
+model RolPermiso {
+  id_rol         Int
+  id_privilegio  Int
+  fecha_asignacion DateTime @default(now())
+
+  rol            Rol        @relation(fields: [id_rol], references: [id])
+  privilegio     Privilegio @relation(fields: [id_privilegio], references: [id])
+
+  @@id([id_rol, id_privilegio])
+  @@map("roles_permisos")
+}
+
+// ==============================
+// MODELO ORGANIGRAMAS
+// ==============================
+
+model Organigrama {
+  id                Int          @id @default(autoincrement())
+  id_usuario        Int
+  titulo            String?      @db.VarChar(255)
+  version           Int?
+  fecha_solicitud    DateTime  @default(now()) 
+  fecha_autorizacion DateTime? 
+  autorizado        Boolean?
+
+  usuario           Usuario      @relation(fields: [id_usuario], references: [id])
+  niveles           Nivel[]
+
+  @@map("organigramas")
+}
+
+// ==============================
+// MODELO NIVELES
+// ==============================
+
+model Nivel {
+  id              Int          @id @default(autoincrement())
+  id_organigrama  Int
+  id_area         Int
+  nivel           Int?
+  area_superior   String?      @db.VarChar(255)
+
+  organigrama     Organigrama  @relation(fields: [id_organigrama], references: [id])
+  area            Area         @relation(fields: [id_area], references: [id])
+
+  @@map("niveles")
+}
+
+// ==============================
+// MODELO IPS
+// ==============================
+
+model Ip {
+  id        Int      @id @default(autoincrement())
+  id_area   Int
+  ip_rh     Boolean?
+  ip_areas  String? @db.VarChar(255)
+  grupo     String? @db.VarChar(255)
+
+  area      Area    @relation(fields: [id_area], references: [id])
+
+  @@map("ips")
+}
+
+// ==============================
+// MODELO DOCUMENTOS
+// ==============================
+
+model Documento {
+  id                 Int             @id @default(autoincrement())
+  id_area            Int
+  id_clasificacion   Int
+  num_oficio         String?         @db.VarChar(255)
+  asunto             String?         @db.VarChar(255)
+  archivo            String?         @db.VarChar(255)
+  titulo_documento   String?         @db.VarChar(255)
+  fecha_recepcion    DateTime?
+  fecha_asignacion   DateTime?
+  fecha_limite       DateTime?
+  fecha_respuesta    DateTime?
+  respuesta_recibida String?         @db.VarChar(255)
+  fecha_entrega      DateTime?
+
+  area               Area            @relation(fields: [id_area], references: [id])
+  clasificacion      Clasificacion   @relation(fields: [id_clasificacion], references: [id])
+  estados            Estado[]
+
+  @@map("documentos")
+}
+
+// ==============================
+// MODELO ESTADOS
+// ==============================
+
+model Estado {
+  id            Int        @id @default(autoincrement())
+  id_documento  Int
+  nombre_estado String?   @db.VarChar(255)
+
+  documento     Documento @relation(fields: [id_documento], references: [id])
+
+  @@map("estados")
+}
+
+// ==============================
+// MODELO CONFIGURACIONES
+// ==============================
+
+model Configuracion {
+  id               Int       @id @default(autoincrement())
+  id_usuario       Int
+  correo_remitente String?   @db.VarChar(255)
+  contrasenia      String?   @db.VarChar(255)
+  smtp             String?   @db.VarChar(255)
+  puerto           Int?
+
+  usuario           Usuario  @relation(fields: [id_usuario], references: [id])
+
+  @@map("configuraciones")
+}
+

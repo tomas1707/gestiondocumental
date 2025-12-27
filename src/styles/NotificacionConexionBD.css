@@ -1,0 +1,50 @@
+/* Contenedor principal */
+.content-area {
+  padding: 5px 15px;
+  flex-grow: 1;
+}
+
+/* Contenedor interno centrado */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Título de la pantalla */
+h2 {
+  text-align: center;
+  margin: 2px 0 8px 0;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  font-size: 18px;
+}
+
+/* Grid de los cards */
+.top-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 cards por fila */
+  gap: 15px; /* espacio entre cards */
+}
+
+/* Media queries para adaptabilidad */
+@media (max-width: 900px) {
+  .top-grid {
+    grid-template-columns: 1fr 1fr; /* dos columnas en pantallas medianas */
+  }
+}
+
+@media (max-width: 600px) {
+  .top-grid {
+    grid-template-columns: 1fr; /* una columna en pantallas pequeñas */
+  }
+}
+
+/* Contenedor para alinear botones a la derecha dentro de cada card */
+.row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}

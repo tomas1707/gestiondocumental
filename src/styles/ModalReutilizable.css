@@ -1,0 +1,124 @@
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --danger-color: #dc3545;
+  --text-color: #343a40;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --border-radius: 8px;
+}
+
+/* Overlay principal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal[aria-hidden="true"] {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; 
+}
+
+/* Tarjeta del modal */
+.modal-card {
+    background-color: white;
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+
+    position: relative;
+}
+
+/* Cabecera */
+.modal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal-head h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin-right: 50px;
+}
+
+/* Cuerpo */
+.modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+/* Pie */
+.modal-foot {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 15px 20px;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Botón de Icono (Cerrar 'X') */
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute; 
+    top: 0; /* Pegado arriba */
+    right: 0; /* Pegado a la derecha */
+    z-index: 1; /* Encima de otros elementos */
+}
+
+.close-red {
+    color: #f9f9f9;
+    background-color: var(--danger-color); /* Fondo rojo  */
+    width: 35px; 
+    height: 35px; 
+    border-radius: 4px; /* Redondeo del cuadro */
+    transition: background-color 0.2s ease; 
+
+    border-top-right-radius: var(--border-radius); 
+    border-bottom-left-radius: 0; 
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.close-red:hover {
+    color: #f9f9f9;
+    background-color: #c82333;
+}
+
+@media (max-width: 600px) {
+    .modal-card {
+        width: 100%;
+        margin: 0 10px;
+    }
+    .modal-foot {
+        flex-direction: column-reverse;
+    }
+}
