@@ -200,7 +200,7 @@ DATABASE_URL="mysql://admindocumental:tu_password_seguro@localhost:3306/gestiond
 Será necesario crear la base de datos del proyecto, por lo tanto es importante mencionar que en el proyecto clonado ya incluye los modelos y relaciones de cada tabla de la base de datos que diseñaron, entonces usarás el siguiente comando para invocar el proceso de migración respectiva y así tener toda la base de datos completa.
 
 ```bash
-npx prisma generate dev --name base_inical
+npx prisma db push
 ```
 
 Este comando creará una carpeta de migraciones en prisma/migrations y generará o actualizará la base de datos, esto en caso de haber cambios el algún modelo.
