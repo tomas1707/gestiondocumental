@@ -297,6 +297,14 @@ No olvides selecionar el método HTTP POST.
 
 Ahora selecciona la opción Body y la sub opción raw en Postman. Verifica que a la derecha de GraphQL esté seleccionada la opción Json.
 
+Recuerda que para insertar un usuario, antes debes insertar un valor en la tabla roles y otro valor en la tabla areas, ya que la excepción se va a disparar de inmedaito.
+```bash
+ insert into areas (nombre_area) values ('Recursos Humanos');
+```
+```bash
+insert into roles (nombre_rol) values ('Ninguno');
+```
+
 Finalmente copia y pega en Postman el siguiente texto en formato JSON
 
 ```javascript
@@ -306,7 +314,8 @@ Finalmente copia y pega en Postman el siguiente texto en formato JSON
     "correo_electronico":"rogelio.castro@gmail.com",
     "nombre_usuario":"rogelio.castro",
     "contrasennia":"password123",
-    "id_rol":3,
-    "id_area":2
+    "id_rol":1,
+    "id_area":1
 }
 ```
+
