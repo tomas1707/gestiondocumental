@@ -7,7 +7,7 @@ async function main() {
   // Áreas
   await prisma.area.createMany({
     data: [
-      { nombre_area: "Preseidencia Municipal" },
+      { nombre_area: "Presidencia Municipal" },
       { nombre_area: "Secretario del Ayuntamiento" },
       { nombre_area: "Sindicatura" },
       { nombre_area: "Regidor de Gobernación" },
@@ -35,12 +35,12 @@ async function main() {
   // Roles
   await prisma.rol.createMany({
     data: [
-      { nombre_rol: "Dashboard Presedencia" },
+      { nombre_rol: "Dashboard Presidencia" },
       { nombre_rol: "Gestión ERP Documental" },
       { nombre_rol: "Visualizador ERP Documental" },
       { nombre_rol: "Gestión Dispersión Documental" },
       { nombre_rol: "Visualizador Dispersión Documental" },
-      { nombre_rol: "Gestión de Recurso Humano" },
+      { nombre_rol: "Gestión de Recursos Humanos" },
     ],
     skipDuplicates: true,
   });
