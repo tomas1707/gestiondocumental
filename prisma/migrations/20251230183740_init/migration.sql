@@ -16,8 +16,9 @@ CREATE TABLE `areas` (
 
 -- CreateTable
 CREATE TABLE `privilegios` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL,
     `titulo_privilegio` VARCHAR(255) NOT NULL,
+    `zona` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -51,7 +52,7 @@ CREATE TABLE `usuarios` (
     `correo_electronico` VARCHAR(255) NULL,
     `nombre_usuario` VARCHAR(255) NULL,
     `contrasenia` VARCHAR(255) NULL,
-    `status` BOOLEAN NOT NULL DEFAULT true,
+    `status` BOOLEAN NOT NULL DEFAULT false,
     `fecha_creacion` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
@@ -72,7 +73,7 @@ CREATE TABLE `organigramas` (
     `id_usuario` INTEGER NOT NULL,
     `titulo` VARCHAR(255) NULL,
     `version` INTEGER NULL,
-    `fecha_solicitud` DATETIME(3) NULL,
+    `fecha_solicitud` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `fecha_autorizacion` DATETIME(3) NULL,
     `autorizado` BOOLEAN NULL,
 

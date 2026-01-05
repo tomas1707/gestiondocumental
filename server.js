@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const pruebasApi = require("./express/api/prueba.api");
 const areasApi = require("./express/api/areas.api");
-const usuariosApi = require("./express/api/usuarios.api");
+const rolesPermisoApi = require("./express/api/usuarios.api");
 
 // 2. Inicialización
 const app = express();
@@ -17,6 +17,7 @@ app.use(express.json());
 app.use("/api/pruebas", pruebasApi);
 app.use("/api/areas", areasApi);
 app.use("/api/usuarios", usuariosApi);
+app.use("/api/rolespermiso", rolesPermisoApi);
 
 // 5. Iniciar el Servidor de Express
 app.listen(port, () => {

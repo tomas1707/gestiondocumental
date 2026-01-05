@@ -6,7 +6,7 @@ const prisma = require("../db/client");
  */
 const getAll = async () => {
   return await prisma.area.findMany({
-    orderBy: { nombre_area: "asc" },
+    orderBy: { id: "asc" },
   });
 };
 

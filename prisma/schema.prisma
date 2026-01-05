@@ -48,8 +48,9 @@ model Area {
 // ==============================
 
 model Privilegio {
-  id                Int            @id @default(autoincrement())
-  titulo_privilegio String         @db.VarChar(255)
+  id                Int           @id
+  titulo_privilegio String        @db.VarChar(255)
+  zona              Int //1.- Menú, 2.- área
 
   roles             RolPermiso[]
 

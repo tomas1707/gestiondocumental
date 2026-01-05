@@ -22,7 +22,7 @@ const LoginPrincipal = () => {
   const navigate = useNavigate();
 
   const usuariosSimulados = [
-    { usuario: "admin", password: "123", ruta: "/usuarios" },
+    { usuario: "admin", password: "123", ruta: "/Usuarios" },
     { usuario: "user", password: "123", ruta: "/dashboard" },
   ];
 

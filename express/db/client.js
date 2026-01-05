@@ -6,7 +6,7 @@ require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
 // 2. Verificamos que la variable esté en el proceso global
 if (!process.env.DATABASE_URL) {
-  console.error("❌ ERROR: DATABASE_URL no encontrada en process.env");
+  console.error("ERROR: DATABASE_URL no encontrada en process.env");
 }
 
 // 3. Constructor VACÍO.

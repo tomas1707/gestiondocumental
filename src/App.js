@@ -10,27 +10,31 @@ import Documentos from "./views/Documentos";
 import LeyArchivo from "./views/LeyArchivo";
 import NotificacionConexionBD from "./views/NotificacionConexionBD";
 import DireccionesIp from "./views/DireccionesIP";
+import AreasPage from "./views/AreasPage";
 
 import "./App.css";
 
 function App() {
   return (
-     <Router>
+    <Router>
       <Routes>
-         <Route path="/login" element={<LoginPrincipal />} />
-         <Route index element={<LoginPrincipal />} />
+        <Route path="/login" element={<LoginPrincipal />} />
+        <Route index element={<LoginPrincipal />} />
 
         <Route path="/" element={<Layout />}>
           <Route path="Usuarios" element={<Usuarios />} />
           <Route path="Dashboard" element={<Dashboard />} />
-         <Route path="Dispersion" element={<Dispersion />} />
+          <Route path="Dispersion" element={<Dispersion />} />
           <Route path="organigrama" element={<Organigrama />} />
           <Route path="Documentos" element={<Documentos />} />
           <Route path="LeyArchivo" element={<LeyArchivo />} />
-          <Route path="/config/notificacion-conexion" element={<NotificacionConexionBD />} />
-           <Route path="/config/direcciones-ip" element={<DireccionesIp />} />
+          <Route path="Areas" element={<AreasPage />} />
+          <Route
+            path="/config/notificacion-conexion"
+            element={<NotificacionConexionBD />}
+          />
+          <Route path="/config/direcciones-ip" element={<DireccionesIp />} />
         </Route>
-
       </Routes>
     </Router>
   );
