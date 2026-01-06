@@ -8,6 +8,8 @@ const usuariosApi = require("./express/api/usuarios.api");
 const clasificacionesApi = require("./express/api/clasificaciones.api");
 const claverhApi = require("./express/api/claverh.api");
 const configuracionesApi = require("./express/api/configuraciones.api");
+const documentosApi = require("./express/api/documentos.api");
+const estadosApi = require("./express/api/estados.api");
 
 // 2. Inicialización
 const app = express();
@@ -24,6 +26,9 @@ app.use("/api/usuarios", usuariosApi);
 app.use("/api/clasificaciones", clasificacionesApi);
 app.use("/api/claverh", claverhApi);
 app.use("/api/configuraciones", configuracionesApi);
+app.use("/api/documentos", documentosApi);
+app.use("/api/estados", estadosApi);
+
 //app.use("/api/rolespermiso", rolesPermisoApi);
 
 // 5. Iniciar el Servidor de Express
