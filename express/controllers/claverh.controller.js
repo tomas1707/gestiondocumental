@@ -2,14 +2,14 @@ const prisma = require("../db/client");
 
 // Obtener todos los registros
 const getAll = async () => {
-  return prisma.claverh.findMany({
+  return prisma.claveRh.findMany({
     orderBy: { id: "asc" },
   });
 };
 
 // Obtener registro por ID
 const getById = async (id) => {
-  const record = await prisma.claverh.findUnique({
+  const record = await prisma.claveRh.findUnique({
     where: { id: Number(id) },
   });
   if (!record) throw new Error("NOT_FOUND");
@@ -20,7 +20,7 @@ const getById = async (id) => {
 const create = async (data) => {
   if (!data.clave) throw new Error("INVALID_DATA");
 
-  return prisma.claverh.create({
+  return prisma.claveRh.create({
     data: {
       clave: data.clave.trim(),
     },
@@ -32,7 +32,7 @@ const update = async (id, data) => {
   if (!data.clave) throw new Error("INVALID_DATA");
 
   try {
-    return prisma.claverh.update({
+    return prisma.claveRh.update({
       where: { id: Number(id) },
       data: {
         clave: data.clave.trim(),
@@ -47,7 +47,7 @@ const update = async (id, data) => {
 // Eliminar registro
 const remove = async (id) => {
   try {
-    return prisma.claverh.delete({
+    return prisma.claveRh.delete({
       where: { id: Number(id) },
     });
   } catch (error) {
