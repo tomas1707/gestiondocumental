@@ -33,7 +33,7 @@ const create = async (data) => {
 
   return prisma.ip.create({
     data: {
-      ip_RH: Boolean(data.ip_RH),
+      ip_rh: Boolean(data.ip_rh),
       ip_areas: data.ip_areas?.trim(),
       grupo: data.grupo?.trim(),
 
@@ -50,7 +50,7 @@ const update = async (id, data) => {
     return await prisma.ip.update({
       where: { id: Number(id) },
       data: {
-        ip_RH: data.ip_RH !== undefined ? Boolean(data.ip_RH) : undefined,
+        ip_rh: data.ip_rh !== undefined ? Boolean(data.ip_rh) : undefined,
         ip_areas: data.ip_areas?.trim(),
         grupo: data.grupo?.trim(),
 
