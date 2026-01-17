@@ -89,11 +89,15 @@ class Organigrama extends Component {
       isModalInsertarAreaOpen: false,
       isModalAutorizarOpen: false,
 
-      // NUEVO: modal editar área
+      // modal editar área
       isModalEditarAreaOpen: false,
       areaEditando: null, // { ...area, index }
 
-      // Formularios (se reutilizan en agregar/editar)
+       // Modal eliminar área
+      isModalEliminarAreaOpen: false,
+      areaAEliminar: null, // { ...area, index }
+
+      // Formularios 
       nuevoTitulo: "",
       nuevaArea: "",
       nuevoNivel: "",
@@ -106,6 +110,9 @@ class Organigrama extends Component {
 
     this.abrirEditarArea = this.abrirEditarArea.bind(this);
     this.guardarEdicionArea = this.guardarEdicionArea.bind(this);
+
+    this.abrirEliminarArea = this.abrirEliminarArea.bind(this);
+    this.eliminarArea = this.eliminarArea.bind(this);
   }
 
   setSearchQuery(value) {
@@ -141,7 +148,7 @@ class Organigrama extends Component {
     });
   }
 
-  // NUEVO: abrir modal de edición de área
+  // abrir modal de edición de área
   abrirEditarArea(area, index) {
     this.setState({
       areaEditando: { ...area, index },
@@ -152,7 +159,7 @@ class Organigrama extends Component {
     });
   }
 
-  // NUEVO: guardar cambios de edición
+  // guardar cambios de edición
   guardarEdicionArea() {
     const { areaEditando, gestionAreas, nuevaArea, nuevoNivel, nuevaSuperior } =
       this.state;
@@ -173,6 +180,28 @@ class Organigrama extends Component {
       nuevaArea: "",
       nuevoNivel: "",
       nuevaSuperior: "",
+    });
+  }
+
+  abrirEliminarArea(area, index) {
+    this.setState({
+      areaAEliminar: { ...area, index },
+      isModalEliminarAreaOpen: true,
+    });
+  }
+
+   eliminarArea() {
+    const { areaAEliminar, gestionAreas } = this.state;
+    if (!areaAEliminar) return;
+
+    const nuevasAreas = gestionAreas.filter(
+      (_, index) => index !== areaAEliminar.index
+    );
+
+    this.setState({
+      gestionAreas: nuevasAreas,
+      isModalEliminarAreaOpen: false,
+      areaAEliminar: null,
     });
   }
 
@@ -269,6 +298,12 @@ class Organigrama extends Component {
           >
             Editar
           </BotonReutilizable>
+          <BotonReutilizable
+              className="btn-action delete"
+              onClick={() => this.abrirEliminarArea(area, index)}
+            >
+              Eliminar
+            </BotonReutilizable>
         </td>
       </tr>
     );
@@ -282,13 +317,6 @@ class Organigrama extends Component {
           {!this.state.mostrarGestion && (
             <>
               <h2 className="card-title">Organigrama</h2>
-
-              {/* Si quieres usar filtro, descomenta esto */}
-              {/* <FiltroBusqueda
-                placeholder="Buscar organigrama..."
-                value={this.state.searchQuery}
-                onChange={(e) => this.setSearchQuery(e.target.value)}
-              /> */}
 
               <div className="management-buttons-container">
                 <BotonReutilizable onClick={() => this.abrirCrear()}>
@@ -458,7 +486,6 @@ class Organigrama extends Component {
             onChange={(e) => this.setState({ nuevaSuperior: e.target.value })}
           >
             <option value="">-- Selecciona una opción --</option>
-            {/* Puedes permitir "-" si quieres que existan áreas raíz */}
             <option value="-">-</option>
 
             {this.state.gestionAreas.map((a, i) => (
@@ -467,6 +494,24 @@ class Organigrama extends Component {
               </option>
             ))}
           </CampoFormulario>
+        </ModalReutilizable>
+
+        <ModalReutilizable
+          title="Eliminar área"
+          isOpen={this.state.isModalEliminarAreaOpen}
+          onClose={() =>
+            this.setState({ isModalEliminarAreaOpen: false, areaAEliminar: null })
+          }
+          onAccept={() => this.eliminarArea()}
+          acceptButtonText="Eliminar"
+        >
+          <p>
+            ¿Estás seguro de que deseas eliminar el área{" "}
+            <strong>{this.state.areaAEliminar?.area}</strong>?
+          </p>
+          <p style={{ color: "#a00", marginTop: "10px" }}>
+            Esta acción no se puede deshacer.
+          </p>
         </ModalReutilizable>
       </main>
     );

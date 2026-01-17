@@ -9,10 +9,18 @@ import IconoIP from "../assets/ip.png";
 import IconoGrupo from "../assets/grupotlahuapan.png";
 
 // Componente para cada notificación
-const NotificationItem = ({ message, time }) => (
-  <div className="notification-item">
-    <p className="notification-message">{message}</p>
-    <span className="notification-time">{time}</span>
+const NotificationItem = ({ message, time, read }) => (
+  <div className={`notification-item ${read ? "read" : "unread"}`}>
+    <div className="notification-item-left">
+      {!read && <span className="notif-dot-mini" />}
+      <div>
+        <p className="notification-message">{message}</p>
+        <span className="notification-time">{time}</span>
+      </div>
+    </div>
+    <span className={`notif-pill ${read ? "pill-read" : "pill-new"}`}>
+      {read ? "Leída" : "Nueva"}
+    </span>
   </div>
 );
 
@@ -23,23 +31,19 @@ function Navbar({
   notifMenuOpen,
   toggleNotificationMenu,
   onViewAllNotifications,
-  notificationsRead,
   ipAddress,
-  groupName
+  groupName,
+  onCloseNotifMenu,
 }) {
-
   const unreadCount = notifications.length;
-
   const handleViewAllClick = (e) => {
-    e.preventDefault();
     e.stopPropagation();
-    toggleNotificationMenu();
-    onViewAllNotifications();
+    if (onCloseNotifMenu) onCloseNotifMenu();
+    if (onViewAllNotifications) onViewAllNotifications();
   };
 
   return (
     <header className="navbar">
-
       {/* MENU */}
       <div className="header-left-group">
         <img
@@ -66,7 +70,6 @@ function Navbar({
 
       {/* USUARIO + NOTIFICACIONES */}
       <div className="user-info">
-
         <div className="profile-info-container">
           <img src={userIcon} alt="Usuario" className="icon-control-img" />
           <span className="user-name">{userName}</span>
@@ -83,10 +86,10 @@ function Navbar({
             className="icon-control-img notification-icon-img"
           />
 
-          {/* BADGE — solo si hay nuevas notificaciones y no está leído */}
-         {unreadCount > 0 && !notifMenuOpen && !notificationsRead && (
+          {unreadCount > 0 && !notifMenuOpen && (
   <span className="notification-badge">{unreadCount}</span>
 )}
+
 
           {/* MENÚ DESPLEGABLE */}
           <div
@@ -101,13 +104,16 @@ function Navbar({
 
             <div className="notification-list-scrollable">
               {unreadCount > 0 ? (
-                notifications.slice(0, 5).map((notif, index) => (
-                  <NotificationItem
-                    key={index}
-                    message={notif.message}
-                    time={notif.time}
-                  />
-                ))
+                notifications
+                  .slice(0, 5)
+                  .map((notif, index) => (
+                    <NotificationItem
+                      key={index}
+                      message={notif.message}
+                      time={notif.time}
+                      read={!!notif.read}
+                    />
+                  ))
               ) : (
                 <div className="dropdown-item notification-empty">
                   No hay notificaciones nuevas.

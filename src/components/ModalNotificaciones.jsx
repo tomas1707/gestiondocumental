@@ -1,64 +1,81 @@
 import React from "react";
 import ModalReutilizable from "./ModalReutilizable";
-import BotonReutilizable from "./BotonReutilizable";
+import "../styles/NotificacionesModal.css";
 
-/**
- * ModalCentroNotificaciones
- *
- * Muestra las notificaciones dinámicamente según los datos recibidos desde BD o API.
- * Props:
- *  - isOpen: controla la visibilidad del modal
- *  - onClose: función para cerrar el modal
- *  - notificaciones: array de objetos [{ id, remitente, mensaje, tiempo, leida, acciones }]
- *  - onAccion: callback opcional para manejar eventos (aceptar, rechazar, etc.)
- */
-const ModalCentroNotificaciones = ({ isOpen, onClose, notificaciones = [], onAccion }) => {
+const ModalNotificaciones = ({
+  isOpen,
+  onClose,
+  notifications = [],
+  onMarkAsRead,
+  onMarkAllAsRead,
+}) => {
+  const unreadCount = notifications.filter((n) => !n.read).length;
+
   return (
     <ModalReutilizable
-      id="modalNotificaciones"
-      title="Centro de Notificaciones"
+      id="modal-notificaciones"
+      title={`Todas las notificaciones (${notifications.length})`}
       isOpen={isOpen}
       onClose={onClose}
-      onAccept={onClose}
-      acceptButtonText="Cerrar"
+      hideFooter={true}
     >
-      <div className="notifications-container">
-        {notificaciones.length === 0 ? (
-          <p className="no-notifications">No hay notificaciones nuevas.</p>
-        ) : (
-          notificaciones.map((notif) => (
-            <div
-              key={notif.id}
-              className={`notification-item ${!notif.leida ? "unread" : ""}`}
+      <div className="notif-modal-header">
+        <div className="notif-subtitle">
+          {unreadCount > 0 ? (
+            <span>
+              <strong>{unreadCount}</strong> sin leer
+            </span>
+          ) : (
+            <span>Todo está leído</span>
+          )}
+        </div>
+
+        <button
+          type="button"
+          className="notif-action-btn"
+          onClick={() => onMarkAllAsRead && onMarkAllAsRead()}
+          disabled={unreadCount === 0}
+          title="Marcar todas como leídas"
+        >
+          Marcar todas como leídas
+        </button>
+      </div>
+
+      <div className="notif-list">
+        {notifications.length > 0 ? (
+          notifications.map((n) => (
+            <button
+              key={n.id ?? `${n.message}-${n.time}`}
+              type="button"
+              className={`notif-item ${n.read ? "read" : "unread"}`}
+              onClick={() => onMarkAsRead && onMarkAsRead(n.id)}
+              title={n.read ? "Leída" : "Marcar como leída"}
             >
-              <p>
-                <strong>{notif.remitente}:</strong> {notif.mensaje}
-              </p>
+              <div className="notif-item-left">
+                {!n.read && <span className="notif-dot" />}
+                <div className="notif-text">
+                  <div className="notif-message">{n.message}</div>
+                  <div className="notif-time">{n.time}</div>
+                </div>
+              </div>
 
-              {notif.acciones?.includes("aceptar") && (
-                <BotonReutilizable
-                  className="btn-small status-active"
-                  onClick={() => onAccion?.("aceptar", notif.id)}
-                >
-                  Aceptar
-                </BotonReutilizable>
-              )}
-              {notif.acciones?.includes("rechazar") && (
-                <BotonReutilizable
-                  className="btn-small btn-danger"
-                  onClick={() => onAccion?.("rechazar", notif.id)}
-                >
-                  Rechazar
-                </BotonReutilizable>
-              )}
-
-              <span className="notification-time">{notif.tiempo}</span>
-            </div>
+              <div className={`notif-status ${n.read ? "status-read" : "status-new"}`}>
+                {n.read ? "Leída" : "Nueva"}
+              </div>
+            </button>
           ))
+        ) : (
+          <div className="notif-empty">No hay notificaciones.</div>
         )}
+      </div>
+
+      <div className="notif-footer">
+        <button className="btn btn-secondary" onClick={onClose}>
+          Cerrar
+        </button>
       </div>
     </ModalReutilizable>
   );
 };
 
-export default ModalCentroNotificaciones;
+export default ModalNotificaciones;
