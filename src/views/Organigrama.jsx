@@ -506,11 +506,7 @@ class Organigrama extends Component {
           acceptButtonText="Eliminar"
         >
           <p>
-            ¿Estás seguro de que deseas eliminar el área{" "}
-            <strong>{this.state.areaAEliminar?.area}</strong>?
-          </p>
-          <p style={{ color: "#a00", marginTop: "10px" }}>
-            Esta acción no se puede deshacer.
+            ¿Estás seguro de que deseas eliminar el área{" "}{this.state.areaAEliminar?.area}?
           </p>
         </ModalReutilizable>
       </main>

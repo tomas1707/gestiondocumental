@@ -90,3 +90,26 @@ table tr.selected-row {
   background-color: #dc3545;
 }
 
+/* Acciones (botones*/
+
+.actions-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;               
+  flex-wrap: nowrap;
+}
+
+th:last-child,
+td:last-child {
+  width: 135px;          
+  white-space: nowrap;
+}
+
+.btn-action {
+  padding: 4px 8px;       
+  font-size: 12px;       
+  border-radius: 6px;     
+  min-width: auto;        
+  line-height: 1.2;
+}
