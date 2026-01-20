@@ -5,24 +5,19 @@ import BotonReutilizable from "../components/BotonReutilizable";
 import FiltroBusqueda from "../components/FiltroBusqueda";
 import EtiquetaEstado from "../components/EtiquetaEstado";
 import Card from "../components/Card";
-import VisorDocumento from "../components/VisorDocumento";
 import GrupoEntrada from "../components/GrupoEntrada";
 import CheckboxArea from "../components/CheckboxArea";
 import DropdownReutilizable from "../components/DropdownReutilizable";
 
 // --- Datos Simulados ---
 const initialData = [
-  { id: 1, asunto: "Solicitud para iniciar obras en la vía pública.", numOficio: "Oficio No. 001/2025/DG", tipo: "Notificación de trabajos.pdf", fRecepcion: "20-09-2025", fAsignacion: "20-09-2025", fRespuesta: "21-09-2025", estatus: "Turnado", detalle: "Notificación de Trabajos sobre el Derecho de Vía" },
+  { id: 1, asunto: "Solicitud para iniciar obras en la vía pública.", numOficio: "Oficio No. 001/2025/DG", tipo: "Notificación de trabajos.pdf", fRecepcion: "20-09-2025", fAsignacion: "20-09-2025", fRespuesta: " ", estatus: "Turnado", detalle: "Notificación de Trabajos sobre el Derecho de Vía" },
   { id: 3, asunto: "Permiso para evento deportivo en plaza central.", numOficio: "Oficio No. 002/2025/SG", tipo: "Solicitud de uso de espacio público.pdf", fRecepcion: "22-09-2025", fAsignacion: "22-09-2025", fRespuesta: "25-09-2025", estatus: "Respondido", detalle: "Permiso para evento deportivo en plaza central" },
   { id: 4, asunto: "Permiso para evento deportivo en plaza central.", numOficio: "Oficio No. 002/2025/SG", tipo: "Solicitud de uso de espacio público.pdf", fRecepcion: "22-09-2025", fAsignacion: "22-09-2025", fRespuesta: "25-09-2025", estatus: "Vencido", detalle: "Permiso para evento deportivo en plaza central" },
   { id: 5, asunto: "Permiso para evento deportivo en plaza central.", numOficio: "Oficio No. 002/2025/SG", tipo: "Solicitud de uso de espacio público.pdf", fRecepcion: "22-09-2025", fAsignacion: "22-09-2025", fRespuesta: "25-09-2025", estatus: "En proceso", detalle: "Permiso para evento deportivo en plaza central" },
 ];
 
 const initialRespuestas = [
-  { documento: "Informe Técnico.pdf", respuesta: "Recibí respuesta", fechaEntrega: "29-09-2025" },
-  { documento: "Informe Técnico.pdf", respuesta: "Recibí respuesta", fechaEntrega: "29-09-2025" },
-  { documento: "Informe Técnico.pdf", respuesta: "Recibí respuesta", fechaEntrega: "29-09-2025" },
-  { documento: "Informe Técnico.pdf", respuesta: "Recibí respuesta", fechaEntrega: "29-09-2025" },
   { documento: "Informe Técnico.pdf", respuesta: "Recibí respuesta", fechaEntrega: "29-09-2025" },
   { documento: "Informe Técnico.pdf", respuesta: "Recibí respuesta", fechaEntrega: "29-09-2025" },
   { documento: "Informe Técnico.pdf", respuesta: "Recibí respuesta", fechaEntrega: "29-09-2025" },
@@ -38,7 +33,7 @@ const estatusOptions = [
 
 const areas = ["Presidencia", "Secretaría Técnica", "Jurídico", "Ley de Archivo"];
 
-const Dispersion = () => {
+const DispersionView = () => {
   const [data, setData] = useState(initialData);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
@@ -49,7 +44,6 @@ const Dispersion = () => {
     areasDestino: [],
   });
 
-  // --- Filtrado de datos ---
   const filteredData = useMemo(() => {
     return data.filter((doc) => {
       const matchesSearch =
@@ -60,7 +54,6 @@ const Dispersion = () => {
     });
   }, [data, searchQuery, activeFilter]);
 
-  // --- Handlers ---
   const handleRowClick = (doc) => {
     setSelectedDocument(doc);
     setFormState({
@@ -99,8 +92,8 @@ const Dispersion = () => {
     </tr>
   );
 
-  const renderRespuestaRow = (resp) => (
-    <tr key={resp.documento}>
+  const renderRespuestaRow = (resp, index) => (
+    <tr key={index}>
       <td>{resp.documento}</td>
       <td>{resp.respuesta}</td>
       <td>{resp.fechaEntrega}</td>
@@ -110,6 +103,7 @@ const Dispersion = () => {
   return (
     <main className="content-area">
       <div className="main-layout">
+        {/* SECCIÓN IZQUIERDA: Tablas */}
         <Card title="Correspondencia" className="table-component">
           <div className="toolbar-container">
             <FiltroBusqueda
@@ -151,13 +145,27 @@ const Dispersion = () => {
           </div>
         </Card>
 
+        {/* SECCIÓN DERECHA: Formulario + Previsualización */}
         <Card className="form-component">
-          <h2>{selectedDocument ? selectedDocument.detalle : "Seleccione un documento para dispersar"}</h2>
+          <h2 className="form-title">
+            {selectedDocument ? "Detalles de Dispersión" : "Seleccione un documento"}
+          </h2>
 
-          <VisorDocumento
-            documentUrl={selectedDocument ? `/docs/${selectedDocument.tipo}` : null}
-            documentTitle={selectedDocument ? selectedDocument.detalle : null}
-          />
+          <div className="mini-preview-container">
+            {selectedDocument ? (
+              <div className="preview-active">
+                <div className="preview-icon">📄</div>
+                <div className="preview-info">
+                  <strong>{selectedDocument.tipo}</strong>
+                  <span>{selectedDocument.numOficio}</span>
+                </div>
+              </div>
+            ) : (
+              <div className="preview-placeholder">
+                <p>Ningún archivo seleccionado</p>
+              </div>
+            )}
+          </div>
 
           <GrupoEntrada label="Asunto:" id="asunto">
             <textarea
@@ -171,16 +179,15 @@ const Dispersion = () => {
 
           <GrupoEntrada label="Fecha límite" id="fechalimite">
             <input
-              type="text"
+              type="date"
               id="fechalimite"
-              placeholder="Fecha límite"
               value={formState.fechalimite}
               onChange={(e) => setFormState({ ...formState, fechalimite: e.target.value })}
             />
           </GrupoEntrada>
 
           <div className="form-group">
-            <label>Área de Destino</label>
+            <label className="label-area">Área de Destino</label>
             <div id="area-checkboxes" className="checkbox-group">
               {areas.map((area) => (
                 <CheckboxArea
@@ -205,4 +212,4 @@ const Dispersion = () => {
   );
 };
 
-export default Dispersion;
+export default DispersionView;

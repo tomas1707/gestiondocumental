@@ -135,3 +135,53 @@
     max-height: 190px; 
 }
 
+
+
+/*Estilo complementario para la previsualizacion*/
+.mini-preview-container {
+    background-color: #f9f9f9;
+    border: 1px dashed #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    min-height: 60px; /* Reducido al quitar el botón */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview-active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.preview-icon {
+    font-size: 20px;
+    margin-bottom: 2px;
+}
+
+.preview-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.preview-info strong {
+    font-size: 11px;
+    color: #333;
+    display: block;
+}
+
+.preview-info span {
+    font-size: 10px;
+    color: #777;
+}
+
+.preview-placeholder p {
+    font-size: 10px;
+    color: #999;
+    margin: 0;
+}
